@@ -13,15 +13,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SchedulerUtils {
 
-    private static Executor backgroundExecutor = Executors.newCachedThreadPool();
-    private static Scheduler BACKGROUND_SCHEDULERS = Schedulers.from(backgroundExecutor);
+//    private static Executor backgroundExecutor = Executors.newCachedThreadPool();
+//    private static Scheduler BACKGROUND_SCHEDULERS = Schedulers.from(backgroundExecutor);
+//
+//    private static Executor internetExecutor = Executors.newCachedThreadPool();
+//    private static Scheduler INTERNET_SCHEDULERS = Schedulers.from(internetExecutor);
 
-    private static Executor internetExecutor = Executors.newCachedThreadPool();
-    private static Scheduler INTERNET_SCHEDULERS = Schedulers.from(internetExecutor);
-
-    public static Scheduler background() {
-        return BACKGROUND_SCHEDULERS;
-    }
+//    public static Scheduler background() {
+//        return BACKGROUND_SCHEDULERS;
+//    }
 
     public static Scheduler io() {
         return Schedulers.io();
@@ -35,7 +35,7 @@ public class SchedulerUtils {
         return AndroidSchedulers.mainThread();
     }
 
-    public static Scheduler internet() {
-        return INTERNET_SCHEDULERS;
-    }
+//    public static Scheduler internet() {
+//        return INTERNET_SCHEDULERS;
+//    }
 }

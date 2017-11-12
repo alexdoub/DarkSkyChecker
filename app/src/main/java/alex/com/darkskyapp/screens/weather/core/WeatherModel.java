@@ -1,7 +1,5 @@
 package alex.com.darkskyapp.screens.weather.core;
 
-import java.util.List;
-
 import alex.com.darkskyapp.api.APIClient;
 import alex.com.darkskyapp.model.Forecast;
 import alex.com.darkskyapp.screens.weather.WeatherActivity;

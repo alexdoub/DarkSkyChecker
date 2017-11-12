@@ -2,8 +2,8 @@ package alex.com.darkskyapp.screens.weather.core;
 
 import android.util.Log;
 
+import alex.com.darkskyapp.utils.SchedulerUtils;
 import alex.com.darkskyapp.utils.ViewUtils;
-import timber.log.Timber;
 
 /**
  * Created by Alex on 11/11/2017.
@@ -37,8 +37,8 @@ public class WeatherPresenter {
     private void getWeather() {
 
         model.provideForecastForLocation("37.130372", "-113.628868")
-                .filter(list -> !list.isEmpty())
-                .map(list -> list.get(0))
+                .subscribeOn(SchedulerUtils.main())
+                .observeOn(SchedulerUtils.io())
                 .subscribe(view::bind, ViewUtils::handleThrowable);
     }
 }

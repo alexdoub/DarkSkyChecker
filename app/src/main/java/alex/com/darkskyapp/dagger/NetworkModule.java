@@ -5,6 +5,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import alex.com.darkskyapp.api.APIClient;
 import alex.com.darkskyapp.api.DarkSkyAPI;
 import alex.com.darkskyapp.config.Constants;
+import alex.com.darkskyapp.utils.SchedulerUtils;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;

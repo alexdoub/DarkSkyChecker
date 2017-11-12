@@ -21,7 +21,6 @@ public class APIClient {
     }
 
     public Observable<Forecast> getForecast(String lat, String lng) {
-        return _darkSkyAPI.getForecast(_apiKey, lat, lng)
-                .subscribeOn(SchedulerUtils.internet());
+        return _darkSkyAPI.getForecast(_apiKey, lat, lng);
     }
 }
