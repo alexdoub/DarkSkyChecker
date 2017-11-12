@@ -1,4 +1,4 @@
-package alex.com.darkskyapp.dagger;
+package alex.com.darkskyapp.components.app.dagger;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -41,7 +41,7 @@ public class NetworkModule {
                 .client(client)
                 .baseUrl(Constants.DARKSKY_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(SchedulerUtils.io()))
                 .build();
 
         return restAdapter;

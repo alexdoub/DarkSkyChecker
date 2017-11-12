@@ -1,6 +1,6 @@
 package alex.com.darkskyapp.api;
 
-import alex.com.darkskyapp.model.Forecast;
+import alex.com.darkskyapp.api.model.Forecast;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

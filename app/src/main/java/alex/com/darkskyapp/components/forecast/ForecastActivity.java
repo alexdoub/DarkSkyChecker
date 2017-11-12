@@ -1,18 +1,19 @@
-package alex.com.darkskyapp.screens.weather;
+package alex.com.darkskyapp.components.forecast;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-import alex.com.darkskyapp.DarkSkyApp;
-import alex.com.darkskyapp.dagger.DaggerAppComponent;
-import alex.com.darkskyapp.screens.weather.core.WeatherPresenter;
-import alex.com.darkskyapp.screens.weather.core.WeatherView;
-import alex.com.darkskyapp.screens.weather.dagger.DaggerWeatherComponent;
-import alex.com.darkskyapp.screens.weather.dagger.WeatherModule;
+import alex.com.darkskyapp.BuildConfig;
+import alex.com.darkskyapp.components.app.DarkSkyApp;
+import alex.com.darkskyapp.components.forecast.core.ForecastView;
+import alex.com.darkskyapp.components.forecast.core.ForecastPresenter;
+import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastComponent;
+import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
 
 import static android.os.PowerManager.ACQUIRE_CAUSES_WAKEUP;
 import static android.os.PowerManager.FULL_WAKE_LOCK;
@@ -23,26 +24,34 @@ import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
  * Created by Alex on 11/11/2017.
  */
 
-public class WeatherActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity {
 
-    @Inject WeatherView view;
-    @Inject WeatherPresenter presenter;
+    @Inject ForecastView view;
+    @Inject ForecastPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerWeatherComponent.builder()
+        DaggerForecastComponent.builder()
                 .appComponent(DarkSkyApp.getAppComponent())
-                .weatherModule(new WeatherModule(this)).build()
+                .forecastModule(new ForecastModule(this)).build()
                 .inject(this);
 
         setContentView(view.view());
         presenter.onCreate();
 
-        riseAndShine(this);
+        if (BuildConfig.DEBUG) {
+            riseAndShine(this);
+        }
     }
 
+    public void goToForecastDetailsActivity() {
+
+        Intent in = new Intent(this, ForecastDetailActivity.class);
+        startActivity(in);
+
+    }
 
     public static void riseAndShine(Activity activity) {
         activity.getWindow().addFlags(FLAG_SHOW_WHEN_LOCKED);

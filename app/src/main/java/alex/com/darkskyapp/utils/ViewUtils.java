@@ -1,6 +1,7 @@
 package alex.com.darkskyapp.utils;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
@@ -12,10 +13,6 @@ import timber.log.Timber;
  */
 
 public class ViewUtils {
-
-//    public static String GetString(int id) {
-//        return GDAXManagerApp.getInstance().getString(id);
-//    }
 
     public static void ShowToast(Context context, String message) {
         ShowToast(context, message, true);
@@ -32,6 +29,5 @@ public class ViewUtils {
     public static void showSnackbar(View view, String message, int length) {
         Snackbar.make(view, message, length).setAction("Action", null).show();
     }
-
 
 }

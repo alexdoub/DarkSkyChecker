@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">DarkSkyApp</string>
+    <string name="app_name">Dark Sky Checker</string>
+
+    <!--Weather-->
+    <string name="refresh_forecast">Refresh Forecast</string>
+    <string name="data_for">Loaded data for %s, %s</string>
+    <string name="no_data">No Data</string>
+    <string name="timezone_for">Timezone: %s</string>
+    <string name="details">Forecast Details</string>
 </resources>

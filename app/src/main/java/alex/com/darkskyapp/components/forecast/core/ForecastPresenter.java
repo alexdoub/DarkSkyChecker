@@ -1,6 +1,4 @@
-package alex.com.darkskyapp.screens.weather.core;
-
-import android.util.Log;
+package alex.com.darkskyapp.components.forecast.core;
 
 import alex.com.darkskyapp.utils.SchedulerUtils;
 import alex.com.darkskyapp.utils.ViewUtils;
@@ -9,36 +7,34 @@ import alex.com.darkskyapp.utils.ViewUtils;
  * Created by Alex on 11/11/2017.
  */
 
-public class WeatherPresenter {
+public class ForecastPresenter {
 
-    WeatherView view;
-    WeatherModel model;
+    ForecastView view;
+    ForecastModel model;
 
-
-    public WeatherPresenter(WeatherModel model, WeatherView view) {
+    public ForecastPresenter(ForecastModel model, ForecastView view) {
         this.model = model;
         this.view = view;
     }
 
     public void onCreate() {
 
-        Log.d("enter to presenter", "oki");
-
         view.refreshClicks().subscribe(obj -> {
-            System.out.println("Consuming click");
             refreshModel();
+        });
+        view.detailsClicks().subscribe(obj -> {
+            model.goToForecastDetailsActivity();
         });
     }
 
     private void refreshModel() {
-        getWeather();
+        getForecast();
     }
 
-    private void getWeather() {
-
+    private void getForecast() {
         model.provideForecastForLocation("37.130372", "-113.628868")
-                .subscribeOn(SchedulerUtils.main())
-                .observeOn(SchedulerUtils.io())
+                .observeOn(SchedulerUtils.main())
                 .subscribe(view::bind, ViewUtils::handleThrowable);
     }
+
 }

@@ -1,9 +1,6 @@
 package alex.com.darkskyapp.api;
 
-import java.util.List;
-
-import alex.com.darkskyapp.model.Forecast;
-import alex.com.darkskyapp.utils.SchedulerUtils;
+import alex.com.darkskyapp.api.model.Forecast;
 import io.reactivex.Observable;
 
 /**

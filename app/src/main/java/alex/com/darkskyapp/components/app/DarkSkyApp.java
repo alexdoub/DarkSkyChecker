@@ -1,11 +1,11 @@
-package alex.com.darkskyapp;
+package alex.com.darkskyapp.components.app;
 
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 
-import alex.com.darkskyapp.dagger.AppComponent;
-import alex.com.darkskyapp.dagger.DaggerAppComponent;
+import alex.com.darkskyapp.components.app.dagger.AppComponent;
+import alex.com.darkskyapp.components.app.dagger.DaggerAppComponent;
 import timber.log.Timber;
 
 /**

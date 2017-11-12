@@ -1,12 +1,9 @@
-package alex.com.darkskyapp.dagger;
+package alex.com.darkskyapp.components.app.dagger;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 
-import javax.inject.Singleton;
-
 import alex.com.darkskyapp.api.APIClient;
-import alex.com.darkskyapp.screens.weather.WeatherActivity;
 import dagger.Component;
 
 /**
