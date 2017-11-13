@@ -1,5 +1,6 @@
 package alex.com.darkskyapp.components.forecast.core;
 
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import javax.inject.Inject;
 
 import alex.com.darkskyapp.R;
-import alex.com.darkskyapp.api.model.Forecast;
+import alex.com.darkskyapp.components.app.api.model.Forecast;
 import alex.com.darkskyapp.components.forecast.ForecastActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,14 +29,16 @@ import timber.log.Timber;
 public class ForecastView {
 
 
-    @BindView(R.id.empty_view) TextView emptyViewTv;
-    @BindView(R.id.container) LinearLayout container;
-
+    @BindView(R.id.title_tv) TextView titleTv;
     @BindView(R.id.location_tv) TextView locationTv;
+
+    @BindView(R.id.container) LinearLayout container;
     @BindView(R.id.timezone_tv) TextView timezoneTv;
     @BindView(R.id.weather_icon) ImageView iconIv;
-    @BindView(R.id.details_button) Button detailButton;
-    @BindView(R.id.refresh_button) Button refreshButton;
+
+    @BindView(R.id.forecast_details) Button forecastDetails;
+    @BindView(R.id.refresh_forecast) Button refreshForecast;
+    @BindView(R.id.refresh_gps) Button refreshGPSLocation;
 
     View view;
     //Context context;
@@ -48,21 +51,23 @@ public class ForecastView {
         ButterKnife.bind(this, view);
     }
 
-    void bind(Forecast model) {
+    void bindForecast(Forecast forecast) {
 
-        emptyViewTv.setVisibility(model != null ? View.GONE : View.VISIBLE);
-        container.setVisibility(model != null ? View.VISIBLE : View.GONE);
+        container.setVisibility(forecast != null ? View.VISIBLE : View.GONE);
 
-        if (model != null) {
-            locationTv.setText(view.getContext().getString(R.string.data_for, model.latitude, model.longitude));
-            timezoneTv.setText(view.getContext().getString(R.string.timezone_for, model.timezone));
+        if (forecast != null) {
+            timezoneTv.setText(view.getContext().getString(R.string.timezone_for, forecast.timezone));
 
-            int resourceId = view.getContext().getResources().getIdentifier(model.currently.getIconStr(), "drawable", view.getContext().getPackageName());
+            int resourceId = view.getContext().getResources().getIdentifier(forecast.currently.getIconStr(), "drawable", view.getContext().getPackageName());
             if (resourceId == 0) {
-                Timber.e("WARNING - No icon set for: " + model.currently.getIconStr());
+                Timber.e("WARNING - No icon set for: " + forecast.currently.getIconStr());
             }
             iconIv.setImageResource(resourceId);
         }
+    }
+
+    void bindLocation(Location location) {
+        titleTv.setText(view.getContext().getString(R.string.your_location, location.getLatitude(), location.getLongitude()));
     }
 
     public View view() {
@@ -70,11 +75,15 @@ public class ForecastView {
     }
 
     public Observable<Object> detailsClicks() {
-        return RxView.clicks(detailButton);
+        return RxView.clicks(forecastDetails);
     }
 
-    public Observable<Object> refreshClicks() {
-        return RxView.clicks(refreshButton);
+    public Observable<Object> refreshForecastClicks() {
+        return RxView.clicks(refreshForecast);
+    }
+
+    public Observable<Object> refreshGPSClicks() {
+        return RxView.clicks(refreshGPSLocation);
     }
 
 }

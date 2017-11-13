@@ -1,6 +1,6 @@
-package alex.com.darkskyapp.api;
+package alex.com.darkskyapp.components.app.api;
 
-import alex.com.darkskyapp.api.model.Forecast;
+import alex.com.darkskyapp.components.app.api.model.Forecast;
 import io.reactivex.Observable;
 
 /**

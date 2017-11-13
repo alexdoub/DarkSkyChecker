@@ -1,21 +1,16 @@
 package alex.com.darkskyapp.components.app.dagger;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
-
-import alex.com.darkskyapp.api.APIClient;
+import alex.com.darkskyapp.components.app.api.APIClient;
+import alex.com.darkskyapp.components.app.UserDataManager;
 import dagger.Component;
 
 /**
- * Created by Alex on 11/11/2017.
+ * Created by Alex on 11/12/2017.
  */
-
 @AppScope
-@Component(modules = {NetworkModule.class})
+@Component(modules = {NetworkModule.class, UserDataModule.class})
 public interface AppComponent {
-    void inject(Activity activity);
+    APIClient provideAPIClient();
 
-    void inject(AppCompatActivity activity);
-
-    APIClient apiClient();
+    UserDataManager provideUserDataManager();
 }

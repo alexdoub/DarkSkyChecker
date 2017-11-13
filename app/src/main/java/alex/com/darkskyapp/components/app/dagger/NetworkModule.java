@@ -2,8 +2,8 @@ package alex.com.darkskyapp.components.app.dagger;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import alex.com.darkskyapp.api.APIClient;
-import alex.com.darkskyapp.api.DarkSkyAPI;
+import alex.com.darkskyapp.components.app.api.APIClient;
+import alex.com.darkskyapp.components.app.api.DarkSkyAPI;
 import alex.com.darkskyapp.config.Constants;
 import alex.com.darkskyapp.utils.SchedulerUtils;
 import dagger.Module;
@@ -23,7 +23,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class NetworkModule {
 
     @Provides
-    @AppScope
     OkHttpClient createOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -34,7 +33,6 @@ public class NetworkModule {
     }
 
     @Provides
-    @AppScope
     Retrofit provideRetrofit(OkHttpClient client) {
 
         Retrofit restAdapter = new Retrofit.Builder()
@@ -48,14 +46,12 @@ public class NetworkModule {
     }
 
 
-    @AppScope
     @Provides
     DarkSkyAPI provideDarkSkyService(Retrofit retrofit) {
         return retrofit.create(DarkSkyAPI.class);
     }
 
     @Provides
-    @AppScope
     APIClient provideAPIClient(DarkSkyAPI darkSkyAPI) {
         return new APIClient(Constants.DARKSKY_API_KEY, darkSkyAPI);
     }

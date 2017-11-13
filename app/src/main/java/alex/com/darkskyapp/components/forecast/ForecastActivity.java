@@ -10,10 +10,10 @@ import javax.inject.Inject;
 
 import alex.com.darkskyapp.BuildConfig;
 import alex.com.darkskyapp.components.app.DarkSkyApp;
+import alex.com.darkskyapp.components.forecast.core.ForecastModel;
 import alex.com.darkskyapp.components.forecast.core.ForecastView;
 import alex.com.darkskyapp.components.forecast.core.ForecastPresenter;
-import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastComponent;
-import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
+import alex.com.darkskyapp.components.app.UserDataManager;
 
 import static android.os.PowerManager.ACQUIRE_CAUSES_WAKEUP;
 import static android.os.PowerManager.FULL_WAKE_LOCK;
@@ -26,17 +26,19 @@ import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
 
 public class ForecastActivity extends AppCompatActivity {
 
-    @Inject ForecastView view;
-    @Inject ForecastPresenter presenter;
+    ForecastView view;
+    ForecastPresenter presenter;
+
+    @Inject ForecastModel forecastModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerForecastComponent.builder()
-                .appComponent(DarkSkyApp.getAppComponent())
-                .forecastModule(new ForecastModule(this)).build()
-                .inject(this);
+        DarkSkyApp.getForecastServiceComponent().inject(this);
+
+        view = new ForecastView(this);
+        presenter = new ForecastPresenter(forecastModel, view);
 
         setContentView(view.view());
         presenter.onCreate();

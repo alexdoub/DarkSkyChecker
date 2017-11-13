@@ -8,8 +8,8 @@ import android.widget.FrameLayout;
 import javax.inject.Inject;
 
 import alex.com.darkskyapp.R;
-import alex.com.darkskyapp.api.model.Forecast;
-import alex.com.darkskyapp.components.forecast.ForecastActivity;
+import alex.com.darkskyapp.components.app.api.model.Forecast;
+import alex.com.darkskyapp.components.forecast.ForecastDetailActivity;
 import butterknife.ButterKnife;
 
 /**
@@ -24,7 +24,7 @@ public class ForecastDetailView {
     //Context context;
 
     @Inject
-    public ForecastDetailView(ForecastActivity context) {
+    public ForecastDetailView(ForecastDetailActivity context) {
         FrameLayout parent = new FrameLayout(context);
         parent.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view = LayoutInflater.from(context).inflate(R.layout.activity_forecast, parent, true);

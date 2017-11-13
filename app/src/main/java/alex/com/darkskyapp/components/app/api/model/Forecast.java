@@ -1,4 +1,4 @@
-package alex.com.darkskyapp.api.model;
+package alex.com.darkskyapp.components.app.api.model;
 
 import com.google.gson.annotations.SerializedName;
 

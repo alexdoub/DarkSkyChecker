@@ -1,5 +1,7 @@
 package alex.com.darkskyapp.config;
 
+import android.location.Location;
+
 /**
  * Created by Alex on 11/11/2017.
  */

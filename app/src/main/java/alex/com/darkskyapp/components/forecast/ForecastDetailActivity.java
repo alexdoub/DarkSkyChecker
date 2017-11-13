@@ -8,8 +8,7 @@ import javax.inject.Inject;
 import alex.com.darkskyapp.components.app.DarkSkyApp;
 import alex.com.darkskyapp.components.forecast.core.ForecastDetailPresenter;
 import alex.com.darkskyapp.components.forecast.core.ForecastDetailView;
-import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastComponent;
-import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
+import alex.com.darkskyapp.components.forecast.core.ForecastModel;
 
 /**
  * Created by Alex on 11/12/2017.
@@ -17,21 +16,22 @@ import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
 
 public class ForecastDetailActivity extends AppCompatActivity {
 
-    @Inject ForecastDetailView view;
-    @Inject ForecastDetailPresenter presenter;
+    ForecastDetailView view;
+    ForecastDetailPresenter presenter;
+
+    @Inject ForecastModel forecastModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerForecastComponent.builder()
-                .appComponent(DarkSkyApp.getAppComponent())
-                .forecastModule(new ForecastModule(this)).build()
-                .inject(this);
+        DarkSkyApp.getForecastServiceComponent().inject(this);
+
+        view = new ForecastDetailView(this);
+        presenter = new ForecastDetailPresenter(forecastModel, view);
 
         setContentView(view.view());
         presenter.onCreate();
-
     }
 
 }

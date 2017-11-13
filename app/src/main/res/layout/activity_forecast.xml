@@ -4,26 +4,28 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/empty_view"
+        android:id="@+id/title_tv"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:text="@string/no_data"
-        android:layout_height="match_parent" />
+        android:text="@string/no_data" />
 
+    <TextView
+        android:id="@+id/location_tv"
+        android:layout_below="@id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--Information view for current forecast-->
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/location_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/timezone_tv"
@@ -36,19 +38,33 @@
             android:layout_height="200dp" />
 
         <Button
-            android:id="@+id/details_button"
+            android:id="@+id/forecast_details"
             android:layout_width="match_parent"
-            android:text="@string/details"
-            android:layout_height="45dp" />
+            android:layout_height="45dp"
+            android:text="@string/details" />
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/refresh_button"
+    <!--Bottom Buttons-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:text="@string/refresh_forecast" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/refresh_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/refresh_forecast" />
+
+        <Button
+            android:id="@+id/refresh_gps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/refresh_gps" />
+
+    </LinearLayout>
 
 </RelativeLayout>

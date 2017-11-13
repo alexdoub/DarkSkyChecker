@@ -1,4 +1,4 @@
-package alex.com.darkskyapp.api.model;
+package alex.com.darkskyapp.components.app.api.model;
 
 /**
  * Created by Alex on 11/12/2017.
