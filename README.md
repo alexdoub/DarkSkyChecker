@@ -1,21 +1,20 @@
 # Dark Sky Checker #
 
-This app lets you check the weather forecast using the Dark Sky API
+This app lets you check the weather forecast using the Dark Sky API.
 
-## Overview ##
+The project is designed with Dagger 2, RxJava & MVP paradigms. 
 
-The app is designed around Dagger, RxJava & MVP paradigms. 
+## Overview & Notes ##
 
 I was planning on having it read from your devices actual GPS, but ended up just simulating GPS locations all around the world instead, as it's more reliable and it shows off the features of the app a bit better. 
 
 The components are neatly separated to better facilitate expansion of the app. For example, we could add a new screen to select the location manually, a Google Maps activity to select a position off of a map, or even a screen that shows several different forecasts at once.
 
-#### Usage ####
+### Usage ###
 
 First, select a location (default is Alaska), then click Refresh Forecast to get the forecast for your selected location. You can select different locations while maintaining the integrity of the ForecastModel.
 
-
-#### Components ####
+### Components ###
 
 Here is a high level overview of the project. It is centered around the main dagger components.
 
