@@ -38,10 +38,10 @@ ForecastComponent                                   │
             └──────────────────────────────────ForecastModel
 ```
 
-App Module - Mostly empty, contains app context
-Data Module - Stores user data (last selected location)
-Network Module - Does network calls over API. It has an API client to hold the API key. In theory we could add multiple clients with different API keys, or if there were separate endpoints with different URLs we could make one ApiClient to represent each one
-Location Module - Chooses new selected locations (currently simulates fake GPS coordinates)
-Forecast Module - Maintains model of a forecast for a location. Shared amongst ForecastActivity & ForecastDetailActivity
+* App Module - Mostly empty, contains app context
+* Data Module - Stores user data (last selected location)
+* Network Module - Does network calls over API. It has an API client to hold the API key. In theory we could add multiple clients with different API keys, or if there were separate endpoints with different URLs we could make one ApiClient to represent each one
+* Location Module - Chooses new selected locations (currently simulates fake GPS coordinates)
+* Forecast Module - Maintains model of a forecast for a location. Shared amongst ForecastActivity & ForecastDetailActivity
 
 
