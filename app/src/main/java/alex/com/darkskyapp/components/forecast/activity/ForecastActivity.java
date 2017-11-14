@@ -1,4 +1,4 @@
-package alex.com.darkskyapp.components.forecast;
+package alex.com.darkskyapp.components.forecast.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,10 +10,10 @@ import javax.inject.Inject;
 
 import alex.com.darkskyapp.BuildConfig;
 import alex.com.darkskyapp.components.app.DarkSkyApp;
+import alex.com.darkskyapp.components.app.activity.BaseActivity;
 import alex.com.darkskyapp.components.forecast.core.ForecastModel;
 import alex.com.darkskyapp.components.forecast.core.ForecastView;
 import alex.com.darkskyapp.components.forecast.core.ForecastPresenter;
-import alex.com.darkskyapp.components.app.UserDataManager;
 
 import static android.os.PowerManager.ACQUIRE_CAUSES_WAKEUP;
 import static android.os.PowerManager.FULL_WAKE_LOCK;
@@ -24,7 +24,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
  * Created by Alex on 11/11/2017.
  */
 
-public class ForecastActivity extends AppCompatActivity {
+public class ForecastActivity extends BaseActivity {
 
     ForecastView view;
     ForecastPresenter presenter;
@@ -42,25 +42,18 @@ public class ForecastActivity extends AppCompatActivity {
 
         setContentView(view.view());
         presenter.onCreate();
+    }
 
-        if (BuildConfig.DEBUG) {
-            riseAndShine(this);
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onStart();
     }
 
     public void goToForecastDetailsActivity() {
-
         Intent in = new Intent(this, ForecastDetailActivity.class);
         startActivity(in);
-
     }
 
-    public static void riseAndShine(Activity activity) {
-        activity.getWindow().addFlags(FLAG_SHOW_WHEN_LOCKED);
 
-        PowerManager power = (PowerManager) activity.getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock lock = power.newWakeLock(FULL_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE, "wakeup!");
-        lock.acquire();
-        lock.release();
-    }
 }

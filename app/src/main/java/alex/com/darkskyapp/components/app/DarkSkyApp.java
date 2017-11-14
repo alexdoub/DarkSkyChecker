@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 
 import alex.com.darkskyapp.components.app.dagger.AppComponent;
+import alex.com.darkskyapp.components.app.dagger.AppModule;
 import alex.com.darkskyapp.components.app.dagger.DaggerAppComponent;
 import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastServiceComponent;
 import alex.com.darkskyapp.components.forecast.dagger.ForecastServiceComponent;
@@ -27,6 +28,7 @@ public class DarkSkyApp extends Application {
         super.onCreate();
 
         _AppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
                 .userDataModule(new UserDataModule()).build();
 

@@ -1,8 +1,8 @@
 package alex.com.darkskyapp.components.forecast.dagger;
 
 import alex.com.darkskyapp.components.app.dagger.AppComponent;
-import alex.com.darkskyapp.components.forecast.ForecastActivity;
-import alex.com.darkskyapp.components.forecast.ForecastDetailActivity;
+import alex.com.darkskyapp.components.forecast.activity.ForecastActivity;
+import alex.com.darkskyapp.components.forecast.activity.ForecastDetailActivity;
 import dagger.Component;
 
 /**

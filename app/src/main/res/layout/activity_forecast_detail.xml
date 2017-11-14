@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,64 +32,55 @@
 
     </LinearLayout>
 
-    <!--Information view for current forecast-->
+    <!--Daily info-->
     <LinearLayout
-        android:id="@+id/forecast_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/daily_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/location_container"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <TextView
             style="@style/LargeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/forecast_info" />
+            android:text="@string/daily_forecast" />
 
-        <TextView
-            android:id="@+id/forecast_coordinates_tv"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/daily_forecast_recycler_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_data" />
-
-        <TextView
-            android:id="@+id/timezone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/forecast_summary_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_data" />
-
-        <ImageView
-            android:id="@+id/weather_icon"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:id="@+id/forecast_details"
-            android:layout_width="180dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/details" />
+            android:layout_below="@id/location_tv"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
     </LinearLayout>
 
-    <!--Hidden loading view-->
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+    <!--Daily info-->
+    <LinearLayout
+        android:id="@+id/hourly_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/daily_container"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/LargeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hourly_forecast" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hourly_forecast_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location_tv"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    </LinearLayout>
 
     <!--Bottom Buttons-->
     <LinearLayout
@@ -103,13 +95,6 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:text="@string/refresh_forecast" />
-
-        <Button
-            android:id="@+id/change_location"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:text="@string/change_location" />
 
     </LinearLayout>
 

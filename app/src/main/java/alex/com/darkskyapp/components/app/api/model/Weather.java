@@ -6,9 +6,19 @@ package alex.com.darkskyapp.components.app.api.model;
 
 public class Weather {
 
-    String icon;
-    public String summary;
 
+    //Common
+    String icon;
+    public long time;
+    public String summary;
+    public double precipProbability;
+
+    //Daily
+    public double temperatureHigh;
+    public double temperatureLow;
+
+    //Hourly
+    public double temperature;
 
     public String getIconStr() {
         return icon.replace("-", "_");

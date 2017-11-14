@@ -2,10 +2,23 @@
     <string name="app_name">Dark Sky Checker</string>
 
     <!--Weather-->
-    <string name="refresh_forecast">Refresh Forecast For Location</string>
-    <string name="refresh_gps">Set Location From GPS</string>
-    <string name="your_location">Your location is %s, %s</string>
+    <string name="location_info">Selected Location</string>
+    <string name="forecast_info">Forecast Information</string>
+    <string name="daily_forecast">Daily Forecast</string>
+    <string name="hourly_forecast">Hourly Forecast</string>
+
+    <string name="refresh_forecast">Refresh Forecast</string>
+    <string name="change_location">Change Location</string>
+    <string name="location_name">Selected location is %s</string>
+    <string name="location_coordinates">Coordinates: %f, %f</string>
     <string name="no_data">No Data</string>
     <string name="timezone_for">Timezone: %s</string>
     <string name="details">Forecast Details</string>
+
+    <!--List items-->
+    <string name="temperature_range">%1.0fF to %1.0fF</string>
+    <string name="temperature">%1.0fF</string>
+    <string name="time_offset_hours">Time Offset: %d hours</string>
+    <string name="time_offset_days">Time Offset: %d days</string>
+    <string name="precipitation">Precipitation: %1.0f%%</string>
 </resources>

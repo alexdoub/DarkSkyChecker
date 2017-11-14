@@ -3,9 +3,8 @@ package alex.com.darkskyapp.components.forecast.core;
 import android.content.Context;
 import android.content.Intent;
 
-import alex.com.darkskyapp.components.forecast.ForecastDetailActivity;
+import alex.com.darkskyapp.components.forecast.activity.ForecastDetailActivity;
 import alex.com.darkskyapp.utils.SchedulerUtils;
-import alex.com.darkskyapp.utils.ViewUtils;
 
 /**
  * Created by Alex on 11/11/2017.
@@ -25,38 +24,40 @@ public class ForecastPresenter {
 
         //Hook up listeners for button clicks
         view.refreshForecastClicks().subscribe(obj -> {
-            getForecast();
+            refreshForecast();
         });
-        view.refreshGPSClicks().subscribe(obj -> {
-            refreshGPS();
+        view.changeLocationClicks().subscribe(obj -> {
+            refreshLocationFromGPS();
         });
         view.detailsClicks().subscribe(obj -> {
             goToForecastDetailsActivity();
         });
 
-        //Hook up listener for GPS location updating
-        model.getLocationObservable().subscribe(location ->
-            view.bindLocation(location)
-        );
+        //Hook up listener for model changing
+        model.getLocationSubject()
+                .observeOn(SchedulerUtils.main())
+                .subscribe(view::bindLocation);
+        model.getForecastSubject()
+                .observeOn(SchedulerUtils.main())
+                .subscribe(view::bindForecast);
+    }
 
-        model.refreshLocationFromGPS();
+    public void onStart() {
+        refreshForecast();
     }
 
     public void goToForecastDetailsActivity() {
-
         Context c = view.view().getContext();
         Intent in = new Intent(c, ForecastDetailActivity.class);
         c.startActivity(in);
-
     }
 
-    private void getForecast() {
-        model.getForecast()
-                .observeOn(SchedulerUtils.main())
-                .subscribe(view::bindForecast, ViewUtils::handleThrowable);
+    private void refreshForecast() {
+        view.showLoading();
+        model.getForecastForLocation();
     }
 
-    private void refreshGPS() {
+    private void refreshLocationFromGPS() {
         model.refreshLocationFromGPS();
     }
 

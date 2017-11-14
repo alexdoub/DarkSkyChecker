@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.view.RxView;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 
 import alex.com.darkskyapp.R;
 import alex.com.darkskyapp.components.app.api.model.Forecast;
-import alex.com.darkskyapp.components.forecast.ForecastActivity;
+import alex.com.darkskyapp.components.forecast.activity.ForecastActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -28,20 +29,21 @@ import timber.log.Timber;
 
 public class ForecastView {
 
-
-    @BindView(R.id.title_tv) TextView titleTv;
     @BindView(R.id.location_tv) TextView locationTv;
+    @BindView(R.id.location_coordinates_tv) TextView coordinatesTv;
 
-    @BindView(R.id.container) LinearLayout container;
+    @BindView(R.id.forecast_container) LinearLayout container;
+    @BindView(R.id.forecast_summary_tv) TextView forecastSummaryTv;
+    @BindView(R.id.forecast_coordinates_tv) TextView forecastLocationTv;
     @BindView(R.id.timezone_tv) TextView timezoneTv;
     @BindView(R.id.weather_icon) ImageView iconIv;
+    @BindView(R.id.loading) ProgressBar loadingView;
 
-    @BindView(R.id.forecast_details) Button forecastDetails;
-    @BindView(R.id.refresh_forecast) Button refreshForecast;
-    @BindView(R.id.refresh_gps) Button refreshGPSLocation;
+    @BindView(R.id.forecast_details) Button forecastDetailsBtn;
+    @BindView(R.id.refresh_forecast) Button refreshForecastBtn;
+    @BindView(R.id.change_location) Button changeLocationBtn;
 
     View view;
-    //Context context;
 
     @Inject
     public ForecastView(ForecastActivity context) {
@@ -52,11 +54,13 @@ public class ForecastView {
     }
 
     void bindForecast(Forecast forecast) {
-
         container.setVisibility(forecast != null ? View.VISIBLE : View.GONE);
+        loadingView.setVisibility(View.GONE);
 
         if (forecast != null) {
             timezoneTv.setText(view.getContext().getString(R.string.timezone_for, forecast.timezone));
+            forecastSummaryTv.setText(getDisplaySummary(forecast));
+            forecastLocationTv.setText(view.getContext().getString(R.string.location_coordinates, forecast.latitude, forecast.longitude));
 
             int resourceId = view.getContext().getResources().getIdentifier(forecast.currently.getIconStr(), "drawable", view.getContext().getPackageName());
             if (resourceId == 0) {
@@ -67,7 +71,14 @@ public class ForecastView {
     }
 
     void bindLocation(Location location) {
-        titleTv.setText(view.getContext().getString(R.string.your_location, location.getLatitude(), location.getLongitude()));
+        Timber.e("ForecastView binding to location:" + location.getProvider());
+        locationTv.setText(view.getContext().getString(R.string.location_name, location.getProvider()));
+        coordinatesTv.setText(view.getContext().getString(R.string.location_coordinates, location.getLatitude(), location.getLongitude()));
+    }
+
+    public void showLoading() {
+        container.setVisibility(View.GONE);
+        loadingView.setVisibility(View.VISIBLE);
     }
 
     public View view() {
@@ -75,15 +86,26 @@ public class ForecastView {
     }
 
     public Observable<Object> detailsClicks() {
-        return RxView.clicks(forecastDetails);
+        return RxView.clicks(forecastDetailsBtn);
     }
 
     public Observable<Object> refreshForecastClicks() {
-        return RxView.clicks(refreshForecast);
+        return RxView.clicks(refreshForecastBtn);
     }
 
-    public Observable<Object> refreshGPSClicks() {
-        return RxView.clicks(refreshGPSLocation);
+    public Observable<Object> changeLocationClicks() {
+        return RxView.clicks(changeLocationBtn);
     }
 
+
+    //Helpers
+    public String getDisplaySummary(Forecast forecast) {
+
+        StringBuilder builder = new StringBuilder("");
+        if (forecast.currently != null) {
+            builder.append(forecast.currently.summary + ". ");
+        }
+        builder.append(forecast.daily.summary);
+        return builder.toString();
+    }
 }
