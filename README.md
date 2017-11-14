@@ -19,6 +19,7 @@ The components are neatly separated to better facilitate expansion of the app. F
 
 Here is a high level overview of the project. It is centered around the main components.
 
+```
 Dagger Components
 │
 ├──AppComponent
@@ -35,9 +36,8 @@ Dagger Components
 ForecastComponent                                   │
     └── ForecastModule                              │
             └──────────────────────────────────ForecastModel
-         
+```
 
-         
 App Module - Mostly empty, contains app context
 Data Module - Stores user data (last selected location)
 Network Module - Does network calls over API. It has an API client to hold the API key. In theory we could add multiple clients with different API keys, or if there were separate endpoints with different URLs we could make one ApiClient to represent each one
