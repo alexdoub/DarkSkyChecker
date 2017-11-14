@@ -6,7 +6,7 @@ import alex.com.darkskyapp.components.app.dagger.AppComponent;
 import alex.com.darkskyapp.components.app.dagger.AppModule;
 import alex.com.darkskyapp.components.app.dagger.DaggerAppComponent;
 import alex.com.darkskyapp.components.app.dagger.DataModule;
-import alex.com.darkskyapp.components.app.dagger.LocationModule;
+import alex.com.darkskyapp.components.app.dagger.GPSLocationModule;
 import alex.com.darkskyapp.components.app.dagger.NetworkModule;
 import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastComponent;
 import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
@@ -30,7 +30,7 @@ public class DarkSkyApp extends Application {
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
                 .dataModule(new DataModule())
-                .locationModule(new LocationModule()).build();
+                .gPSLocationModule(new GPSLocationModule()).build();
 
         Timber.plant(new Timber.DebugTree());
     }

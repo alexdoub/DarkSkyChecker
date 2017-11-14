@@ -4,7 +4,8 @@ import android.location.Location;
 
 import alex.com.darkskyapp.components.app.api.APIClient;
 import alex.com.darkskyapp.components.app.api.model.Forecast;
-import alex.com.darkskyapp.components.app.data.LocationManager;
+import alex.com.darkskyapp.components.app.data.DataManager;
+import alex.com.darkskyapp.components.app.data.GPSLocationManager;
 import alex.com.darkskyapp.utils.SchedulerUtils;
 import io.reactivex.subjects.BehaviorSubject;
 
@@ -15,26 +16,24 @@ import io.reactivex.subjects.BehaviorSubject;
 public class ForecastModel {
 
     private APIClient apiClient;
-    private LocationManager locationManager;
+    private DataManager dataManager;
     private BehaviorSubject<Forecast> forecastSubject;
     private BehaviorSubject<Location> locationSubject;
 
-    public ForecastModel(APIClient apiClient, LocationManager locationManager) {
+    public ForecastModel(APIClient apiClient, DataManager dataManager) {
         this.apiClient = apiClient;
-        this.locationManager = locationManager;
+        this.dataManager = dataManager;
         forecastSubject = BehaviorSubject.create();
-        locationSubject = BehaviorSubject.createDefault(locationManager.getLastSavedLocationOrDefault());
+        locationSubject = BehaviorSubject.create();
     }
 
-    void refreshLocationFromGPS() {
-        locationManager.getGPSLocationObservable()
-                .take(1)
-                .subscribe(locationSubject::onNext);
-
-        locationManager.simulateGPSUpdate();
+    //Assume the GPSLocationManager is constantly spitting out new locations (always on)
+    //Capture 1 location as the selected location
+    void setLocationFromDataManager() {
+        locationSubject.onNext(dataManager.selectedLocationSubject.getValue());
     }
 
-    void getForecastForLocation() {
+    private void getForecastForLocation() {
         Location selectedLocation = locationSubject.getValue();
         String lat = "" + selectedLocation.getLatitude();
         String lng = "" + selectedLocation.getLongitude();

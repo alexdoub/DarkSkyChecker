@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import javax.inject.Inject;
 
+import alex.com.darkskyapp.components.app.data.DataManager;
 import alex.com.darkskyapp.config.Constants;
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +24,11 @@ public class DataModule {
     @Provides
     SharedPreferences provideSharedPreferences(Context context) {
         return context.getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    DataManager provideDataManager(SharedPreferences prefs) {
+        return new DataManager(prefs);
     }
 }
 

@@ -24,7 +24,7 @@ public class ForecastPresenter {
 
         //Button listeners
         view.refreshForecastClicks().subscribe(obj -> {
-            refreshForecast();
+            getForecastForSelectedLocation();
         });
         view.changeLocationClicks().subscribe(obj -> {
             refreshLocationFromGPS();
@@ -44,7 +44,7 @@ public class ForecastPresenter {
 
     public void onStart() {
         if (!model.getForecastSubject().hasValue()) {
-            refreshForecast();
+            getForecastForSelectedLocation();
         }
     }
 
@@ -54,13 +54,12 @@ public class ForecastPresenter {
         context.startActivity(in);
     }
 
-    private void refreshForecast() {
+    private void getForecastForSelectedLocation() {
         view.showLoading(true);
-        model.getForecastForLocation();
+        model.setLocationFromDataManager();
     }
 
     private void refreshLocationFromGPS() {
-        model.refreshLocationFromGPS();
     }
 
 }
