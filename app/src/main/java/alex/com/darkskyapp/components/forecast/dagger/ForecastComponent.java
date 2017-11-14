@@ -9,9 +9,9 @@ import dagger.Component;
  * Created by Alex on 11/11/2017.
  */
 
-@ForecastServiceScope
-@Component(dependencies = {AppComponent.class}, modules = {ForecastServiceModule.class})
-public interface ForecastServiceComponent {
+@ForecastScope
+@Component(dependencies = {AppComponent.class}, modules = {ForecastModule.class})
+public interface ForecastComponent {
 
     void inject(ForecastActivity forecastActivity);
 

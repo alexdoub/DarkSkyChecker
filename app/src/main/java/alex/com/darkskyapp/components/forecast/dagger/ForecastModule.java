@@ -11,10 +11,10 @@ import dagger.Provides;
  */
 
 @Module
-public class ForecastServiceModule {
+public class ForecastModule {
 
     @Provides
-    @ForecastServiceScope
+    @ForecastScope
     ForecastModel provideModel(APIClient apiClient, LocationManager locationManager) {
         return new ForecastModel(apiClient, locationManager);
     }

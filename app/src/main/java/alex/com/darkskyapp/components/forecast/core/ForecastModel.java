@@ -7,7 +7,6 @@ import alex.com.darkskyapp.components.app.api.model.Forecast;
 import alex.com.darkskyapp.components.app.data.LocationManager;
 import alex.com.darkskyapp.utils.SchedulerUtils;
 import io.reactivex.subjects.BehaviorSubject;
-import timber.log.Timber;
 
 /**
  * Created by Alex on 11/11/2017.

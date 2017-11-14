@@ -20,7 +20,7 @@ public class LocationModule {
     }
 
     @Provides
-    LocationManager provideUserDataManager(SharedPreferences preferences) {
+    LocationManager provideLocationManager(SharedPreferences preferences) {
         return new LocationManager(preferences);
     }
 }

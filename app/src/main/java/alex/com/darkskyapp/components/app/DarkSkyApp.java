@@ -8,9 +8,9 @@ import alex.com.darkskyapp.components.app.dagger.DaggerAppComponent;
 import alex.com.darkskyapp.components.app.dagger.DataModule;
 import alex.com.darkskyapp.components.app.dagger.LocationModule;
 import alex.com.darkskyapp.components.app.dagger.NetworkModule;
-import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastServiceComponent;
-import alex.com.darkskyapp.components.forecast.dagger.ForecastServiceComponent;
-import alex.com.darkskyapp.components.forecast.dagger.ForecastServiceModule;
+import alex.com.darkskyapp.components.forecast.dagger.DaggerForecastComponent;
+import alex.com.darkskyapp.components.forecast.dagger.ForecastModule;
+import alex.com.darkskyapp.components.forecast.dagger.ForecastComponent;
 import timber.log.Timber;
 
 /**
@@ -20,7 +20,7 @@ import timber.log.Timber;
 public class DarkSkyApp extends Application {
 
     private static AppComponent _AppComponent;
-    private static ForecastServiceComponent _ForecastServiceComponent;
+    private static ForecastComponent _ForecastComponent;
 
     @Override
     public void onCreate() {
@@ -40,12 +40,12 @@ public class DarkSkyApp extends Application {
     }
 
 
-    public static ForecastServiceComponent getForecastServiceComponent() {
-        if (_ForecastServiceComponent == null) {
-            _ForecastServiceComponent = DaggerForecastServiceComponent.builder()
+    public static ForecastComponent getForecastServiceComponent() {
+        if (_ForecastComponent == null) {
+            _ForecastComponent = DaggerForecastComponent.builder()
                     .appComponent(getAppComponent())
-                    .forecastServiceModule(new ForecastServiceModule()).build();
+                    .forecastModule(new ForecastModule()).build();
         }
-        return _ForecastServiceComponent;
+        return _ForecastComponent;
     }
 }
