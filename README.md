@@ -65,7 +65,7 @@ ForecastModel
     │
     └──ForecastDetailActivity
             ├──ForecastDetailView─┐
-            │                   　　↓
+            │                     ↓
             └────────ForecastDetailPresenter
 ```
 
