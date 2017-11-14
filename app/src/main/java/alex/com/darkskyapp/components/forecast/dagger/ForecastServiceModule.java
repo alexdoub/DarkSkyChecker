@@ -1,7 +1,8 @@
 package alex.com.darkskyapp.components.forecast.dagger;
 
 import alex.com.darkskyapp.components.app.api.APIClient;
-import alex.com.darkskyapp.components.app.data.LocationManager;
+import alex.com.darkskyapp.components.app.data.DataManager;
+import alex.com.darkskyapp.components.app.data.GPSLocationManager;
 import alex.com.darkskyapp.components.forecast.core.ForecastModel;
 import dagger.Module;
 import dagger.Provides;
@@ -15,8 +16,8 @@ public class ForecastServiceModule {
 
     @Provides
     @ForecastServiceScope
-    ForecastModel provideModel(APIClient apiClient, LocationManager locationManager) {
-        return new ForecastModel(apiClient, locationManager);
+    ForecastModel provideModel(APIClient apiClient, GPSLocationManager GPSLocationManager, DataManager dataManager) {
+        return new ForecastModel(apiClient, GPSLocationManager, dataManager);
     }
 
 }

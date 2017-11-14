@@ -4,10 +4,10 @@ import android.location.Location;
 
 import alex.com.darkskyapp.components.app.api.APIClient;
 import alex.com.darkskyapp.components.app.api.model.Forecast;
-import alex.com.darkskyapp.components.app.data.LocationManager;
+import alex.com.darkskyapp.components.app.data.DataManager;
+import alex.com.darkskyapp.components.app.data.GPSLocationManager;
 import alex.com.darkskyapp.utils.SchedulerUtils;
 import io.reactivex.subjects.BehaviorSubject;
-import timber.log.Timber;
 
 /**
  * Created by Alex on 11/11/2017.
@@ -16,23 +16,28 @@ import timber.log.Timber;
 public class ForecastModel {
 
     private APIClient apiClient;
-    private LocationManager locationManager;
+    private GPSLocationManager GPSLocationManager;
+//    private DataManager dataManager;
     private BehaviorSubject<Forecast> forecastSubject;
     private BehaviorSubject<Location> locationSubject;
 
-    public ForecastModel(APIClient apiClient, LocationManager locationManager) {
+    public ForecastModel(APIClient apiClient, GPSLocationManager GPSLocationManager, DataManager dataManager) {
         this.apiClient = apiClient;
-        this.locationManager = locationManager;
+        this.GPSLocationManager = GPSLocationManager;
+//        this.dataManager = dataManager;
         forecastSubject = BehaviorSubject.create();
-        locationSubject = BehaviorSubject.createDefault(locationManager.getLastSavedLocationOrDefault());
+        locationSubject = BehaviorSubject.createDefault(dataManager.getLastSavedLocationOrDefault());
+        locationSubject.subscribe(dataManager::saveLastSelectedLocation);   //Make DataManager listen for selected locations & store them
     }
 
+    //Assume the GPSLocationManager is constantly spitting out new locations (always on)
+    //Capture 1 location as the selected location
     void refreshLocationFromGPS() {
-        locationManager.getGPSLocationObservable()
+        GPSLocationManager.getGPSLocationObservable()
                 .take(1)
                 .subscribe(locationSubject::onNext);
 
-        locationManager.simulateGPSUpdate();
+        GPSLocationManager.simulateGPSUpdate();
     }
 
     void getForecastForLocation() {
