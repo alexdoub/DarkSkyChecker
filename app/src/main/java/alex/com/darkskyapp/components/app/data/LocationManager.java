@@ -21,40 +21,14 @@ public class LocationManager {
     private static String KEY_LAST_LOCATION_LONGITUDE = "longitude";
 
     //Simulated Locations
-    private static Location Alaska() {
-        Location location = new Location("Alaska");
-        location.setLatitude(66.160507);
-        location.setLongitude(-153.369141);
-        return location;
-    }
+    private static Location LosAngeles = From("Los Angeles", 37.130372, -113.628868);
+    private static Location NewYork = From("New York", 40.71448, -74.00598);
+    private static Location Taiwan = From("Taiwan", 25.059066, 121.533335);
+    private static Location Miami = From("Miami", 25.754558, -80.196714);
+    private static Location NewOrleans = From("New Orleans", 29.934483, -90.086655);
+    private static Location Singapore = From("Singapore", 1.333175, 103.874877);
+    private static Location Alaska = From("Alaska", 66.160507, -153.369141);
 
-    private static Location LosAngeles() {
-        Location location = new Location("Los Angeles");
-        location.setLatitude(37.130372);
-        location.setLongitude(-113.628868);
-        return location;
-    }
-
-    private static Location NewYork() {
-        Location location = new Location("New York");
-        location.setLatitude(40.71448);
-        location.setLongitude(-74.00598);
-        return location;
-    }
-
-    private static Location Taiwan() {
-        Location location = new Location("Taipei");
-        location.setLatitude(25.059066);
-        location.setLongitude(121.533335);
-        return location;
-    }
-
-    private static Location Miami() {
-        Location location = new Location("Miami");
-        location.setLatitude(25.754558);
-        location.setLongitude(-80.196714);
-        return location;
-    }
 
     private ArrayList<Location> simulatedGPSLocations = new ArrayList<>();
     private PublishSubject<Location> gpsLocationSubject = PublishSubject.create();
@@ -68,11 +42,20 @@ public class LocationManager {
         gpsLocationSubject.subscribe(this::saveLastLocation);
 
         //Create simulated GPS simulatedGPSLocations
-        simulatedGPSLocations.add(LosAngeles());
-        simulatedGPSLocations.add(NewYork());
-        simulatedGPSLocations.add(Alaska());
-        simulatedGPSLocations.add(Taiwan());
-        simulatedGPSLocations.add(Miami());
+        simulatedGPSLocations.add(LosAngeles);
+        simulatedGPSLocations.add(NewYork);
+        simulatedGPSLocations.add(Taiwan);
+        simulatedGPSLocations.add(Miami);
+        simulatedGPSLocations.add(Singapore);
+        simulatedGPSLocations.add(NewOrleans);
+        simulatedGPSLocations.add(Alaska);
+    }
+
+    private static Location From(String name, double lat, double lng) {
+        Location location = new Location(name);
+        location.setLatitude(lat);
+        location.setLongitude(lng);
+        return location;
     }
 
     public Location getLastSavedLocationOrDefault() {
@@ -83,7 +66,7 @@ public class LocationManager {
 
         if (lastLocationName == null || lastLocationName.length() == 0) {
             Timber.i("getLastSavedLocationOrDefault loading default");
-            return Alaska();
+            return Alaska;
         } else {
             Timber.i("getLastSavedLocationOrDefault loading stored: " + lastLocationName);
             Location storedLocation = new Location(lastLocationName);
@@ -106,6 +89,8 @@ public class LocationManager {
         return gpsLocationSubject;
     }
 
+    //Simulating a GPS better shows off this app as you can select different locations
+    //and adding real GPS hookups would be a lot more hassle
     public void simulateGPSUpdate() {
         Location newLocation = simulatedGPSLocations.remove(0);
         simulatedGPSLocations.add(newLocation);
