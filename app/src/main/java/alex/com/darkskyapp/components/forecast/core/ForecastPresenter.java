@@ -53,7 +53,7 @@ public class ForecastPresenter {
     }
 
     private void refreshForecast() {
-        view.showLoading();
+        view.showLoading(true);
         model.getForecastForLocation();
     }
 

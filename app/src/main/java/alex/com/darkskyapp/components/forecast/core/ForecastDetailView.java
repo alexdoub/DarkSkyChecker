@@ -1,12 +1,12 @@
 package alex.com.darkskyapp.components.forecast.core;
 
-import android.location.Location;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.view.RxView;
@@ -28,8 +28,12 @@ import io.reactivex.Observable;
 
 public class ForecastDetailView {
 
-    @BindView(R.id.location_tv) TextView locationTv;
     @BindView(R.id.location_coordinates_tv) TextView coordinatesTv;
+
+    @BindView(R.id.location_container) LinearLayout locationContainer;
+    @BindView(R.id.daily_container) LinearLayout dailyContainer;
+    @BindView(R.id.hourly_container) LinearLayout hourlyContainer;
+    @BindView(R.id.loading) ProgressBar loadingView;
 
     @BindView(R.id.daily_forecast_recycler_view) RecyclerView dailyRecyclerView;
     @BindView(R.id.hourly_forecast_recycler_view) RecyclerView hourlyRecyclerView;
@@ -52,15 +56,18 @@ public class ForecastDetailView {
     }
 
     void bindForecast(Forecast forecast) {
+        showLoading(false);
+
         dailyAdapter.setWeatherItems(forecast.daily.data);
         hourlyAdapter.setWeatherItems(forecast.hourly.data);
-
-        Snackbar.make(view, "Updated Forecast", Snackbar.LENGTH_SHORT).show();
+        coordinatesTv.setText(view.getContext().getString(R.string.location_coordinates, forecast.latitude, forecast.longitude));
     }
 
-    void bindLocation(Location location) {
-        locationTv.setText(view.getContext().getString(R.string.location_name, location.getProvider()));
-        coordinatesTv.setText(view.getContext().getString(R.string.location_coordinates, location.getLatitude(), location.getLongitude()));
+    void showLoading(boolean loading) {
+        locationContainer.setVisibility(loading ? View.GONE : View.VISIBLE);
+        dailyContainer.setVisibility(loading ? View.GONE : View.VISIBLE);
+        hourlyContainer.setVisibility(loading ? View.GONE : View.VISIBLE);
+        loadingView.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     public View view() {

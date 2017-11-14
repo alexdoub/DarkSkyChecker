@@ -27,7 +27,7 @@ public class ForecastModel {
         locationSubject = BehaviorSubject.createDefault(locationManager.getLastOrDefaultLocation());
     }
 
-    public void refreshLocationFromGPS() {
+    void refreshLocationFromGPS() {
         locationManager.getGPSLocationObservable()
                 .take(1)
                 .subscribe(newLocation -> {
@@ -38,12 +38,8 @@ public class ForecastModel {
         locationManager.simulateGPSUpdate();
     }
 
-    public Location getSelectedLocation() {
-        return locationSubject.getValue();
-    }
-
     void getForecastForLocation() {
-        Location selectedLocation = getSelectedLocation();
+        Location selectedLocation = locationSubject.getValue();
         String lat = "" + selectedLocation.getLatitude();
         String lng = "" + selectedLocation.getLongitude();
         apiClient.getForecast(lat, lng)

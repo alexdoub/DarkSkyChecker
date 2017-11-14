@@ -8,8 +8,8 @@ import alex.com.darkskyapp.utils.SchedulerUtils;
 
 public class ForecastDetailPresenter {
 
-    ForecastDetailView view;
-    ForecastModel model;
+    private ForecastDetailView view;
+    private ForecastModel model;
 
     public ForecastDetailPresenter(ForecastModel model, ForecastDetailView view) {
         this.model = model;
@@ -23,15 +23,13 @@ public class ForecastDetailPresenter {
         });
 
         //Hook up listener for model
-        model.getLocationSubject()
-                .observeOn(SchedulerUtils.main())
-                .subscribe(view::bindLocation);
         model.getForecastSubject()
                 .observeOn(SchedulerUtils.main())
                 .subscribe(view::bindForecast);
     }
 
     private void refreshForecast() {
+        view.showLoading(true);
         model.getForecastForLocation();
     }
 

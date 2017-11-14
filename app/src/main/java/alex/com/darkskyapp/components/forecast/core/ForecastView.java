@@ -54,8 +54,7 @@ public class ForecastView {
     }
 
     void bindForecast(Forecast forecast) {
-        container.setVisibility(View.VISIBLE);
-        loadingView.setVisibility(View.GONE);
+        showLoading(false);
 
         timezoneTv.setText(view.getContext().getString(R.string.timezone_for, forecast.timezone));
         forecastSummaryTv.setText(getDisplaySummary(forecast));
@@ -69,14 +68,13 @@ public class ForecastView {
     }
 
     void bindLocation(Location location) {
-        Timber.e("ForecastView binding to location:" + location.getProvider());
         locationTv.setText(view.getContext().getString(R.string.location_name, location.getProvider()));
         coordinatesTv.setText(view.getContext().getString(R.string.location_coordinates, location.getLatitude(), location.getLongitude()));
     }
 
-    void showLoading() {
-        container.setVisibility(View.GONE);
-        loadingView.setVisibility(View.VISIBLE);
+    void showLoading(boolean loading) {
+        container.setVisibility(loading ? View.GONE : View.VISIBLE);
+        loadingView.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     public View view() {

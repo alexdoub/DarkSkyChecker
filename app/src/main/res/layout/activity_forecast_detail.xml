@@ -16,13 +16,7 @@
             style="@style/LargeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/location_info" />
-
-        <TextView
-            android:id="@+id/location_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/no_data" />
+            android:text="@string/forecast_info" />
 
         <TextView
             android:id="@+id/location_coordinates_tv"
@@ -45,6 +39,7 @@
             style="@style/LargeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/daily_forecast" />
 
         <android.support.v7.widget.RecyclerView
@@ -70,6 +65,7 @@
             style="@style/LargeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/hourly_forecast" />
 
         <android.support.v7.widget.RecyclerView
@@ -81,6 +77,15 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
     </LinearLayout>
+
+    <!--Loading view-->
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 
     <!--Bottom Buttons-->
     <LinearLayout
