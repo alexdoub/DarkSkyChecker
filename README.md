@@ -22,21 +22,21 @@ Here is a high level overview of the project. It is centered around the main dag
 
 ```
 Dagger Components
-	│
-	├──AppComponent
-	│   ├── AppModule 
-	│   │       └──App Context─>┐
-	│   │                       │
-	│   ├── DataModule          │
-	│   │       └───────SharedPreferences─>┐
-	│   ├── LocationModule                 │
-	│   │       └──────────────────LocationManager─>───┐
-	│   └── NetworkModule                              │
-	│           └───────APIClient─>────────────────────┤
-	│                                                  │
+    │
+    ├──AppComponent
+    │   ├── AppModule 
+    │   │       └──App Context─>┐
+    │   │                       │
+    │   ├── DataModule          │
+    │   │       └───────SharedPreferences─>┐
+    │   ├── LocationModule                 │
+    │   │       └──────────────────LocationManager─>───┐
+    │   └── NetworkModule                              │
+    │           └───────APIClient─>────────────────────┤
+    │                                                  │
     └── ForecastComponent                              │
-			└── ForecastModule						   │
-					└─────────────────────────────ForecastModel
+            └── ForecastModule                         │
+                    └─────────────────────────────ForecastModel
 ```
 
 * App Module - Contains app context
@@ -46,41 +46,44 @@ Dagger Components
 * Forecast Module - Maintains model of a forecast for a location. Shared among ForecastActivity & ForecastDetailActivity
 
 
-## Activities ##
+## Activities & Flow ##
 
 The activities follow a MVP paradigm where both activities share the same Forecast Model
 
-...
+```
+   ...
+    ↓
 ForecastModel 
 (Injects into)
-	↓
-	│
-	├──ForecastActivity
-	│		├──ForecastView─┐
-	│		│				↓
-	│		└────────ForecastPresenter
-	│
-	│
-	└──ForecastDetailActivity
-			├──ForecastDetailView─┐
-			│					　　↓
-			└────────ForecastDetailPresenter
-			
+    ↓
+    │
+    ├──ForecastActivity
+    │       ├──ForecastView─┐
+    │       │               ↓
+    │       └────────ForecastPresenter
+    │
+    │
+    └──ForecastDetailActivity
+            ├──ForecastDetailView─┐
+            │                   　　↓
+            └────────ForecastDetailPresenter
+```
 
-The view binds to API model data 
+The view binds to API model data (provided by the ForecastModel)
 The presenter hooks up the forecast model to the view via Rx subscriptions
 The presenter responds to view events via Rx subscriptions and triggers model events
+The model fetches forecast data relating to its current location
 
 Example data flow:
 1) User taps update location
 2) Model subscribes to single GPS update
 3) Location manager simulates GPS update
 4) Model updates selected location
-5) View binds with new location
+5) View binds with new selected location
 
 1) User taps refresh forecast
 2) Presenter propagates event to model
-3) Model fetches forecast
+3) Model fetches forecast for selected location
 4) View listens to model update via presenter hookup & binds new forecast data
 
 
