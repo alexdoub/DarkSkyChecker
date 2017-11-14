@@ -51,6 +51,7 @@ public class ForecastView {
         parent.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view = LayoutInflater.from(context).inflate(R.layout.activity_forecast, parent, true);
         ButterKnife.bind(this, view);
+        context.getSupportActionBar().setTitle(R.string.activity_forecast);
     }
 
     void bindForecast(Forecast forecast) {

@@ -50,6 +50,7 @@ public class ForecastDetailView {
         parent.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view = LayoutInflater.from(context).inflate(R.layout.activity_forecast_detail, parent, true);
         ButterKnife.bind(this, view);
+        context.getSupportActionBar().setTitle(R.string.activity_forecast_details);
 
         dailyRecyclerView.setAdapter(dailyAdapter);
         hourlyRecyclerView.setAdapter(hourlyAdapter);

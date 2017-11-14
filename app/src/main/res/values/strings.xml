@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Dark Sky Checker</string>
+    <string name="activity_forecast">Forecast</string>
+    <string name="activity_forecast_details">Forecast Details</string>
 
     <!--Forecast-->
     <string name="location_info">Selected Location</string>

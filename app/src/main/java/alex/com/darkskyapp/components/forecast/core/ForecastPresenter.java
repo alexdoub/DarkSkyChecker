@@ -43,7 +43,9 @@ public class ForecastPresenter {
     }
 
     public void onStart() {
-        refreshForecast();
+        if (!model.getForecastSubject().hasValue()) {
+            refreshForecast();
+        }
     }
 
     private void goToForecastDetailsActivity() {
