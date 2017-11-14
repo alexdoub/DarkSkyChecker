@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import javax.inject.Inject;
 
-import alex.com.darkskyapp.components.app.data.UserDataManager;
 import alex.com.darkskyapp.config.Constants;
 import dagger.Module;
 import dagger.Provides;
@@ -15,20 +14,15 @@ import dagger.Provides;
  */
 
 @Module
-public class UserDataModule {
+public class DataModule {
 
     @Inject
-    public UserDataModule() {
+    public DataModule() {
     }
 
     @Provides
     SharedPreferences provideSharedPreferences(Context context) {
         return context.getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-    }
-
-    @Provides
-    UserDataManager provideUserDataManager(SharedPreferences preferences) {
-        return new UserDataManager(preferences);
     }
 }
 

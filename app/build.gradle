@@ -45,8 +45,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.android.support:design:26.1.0'
-    debugCompile 'com.facebook.stetho:stetho:1.5.0'
-    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+//    debugCompile 'com.facebook.stetho:stetho:1.5.0'
+//    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
     implementation 'com.jakewharton.timber:timber:4.6.0'
 
     //Networking
@@ -66,7 +66,5 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    //compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-    //compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
 }

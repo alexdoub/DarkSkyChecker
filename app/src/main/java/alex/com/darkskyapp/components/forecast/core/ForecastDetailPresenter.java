@@ -29,8 +29,6 @@ public class ForecastDetailPresenter {
         model.getForecastSubject()
                 .observeOn(SchedulerUtils.main())
                 .subscribe(view::bindForecast);
-
-        view.bindForecast(model.getForecastSubject().getValue());
     }
 
     private void refreshForecast() {

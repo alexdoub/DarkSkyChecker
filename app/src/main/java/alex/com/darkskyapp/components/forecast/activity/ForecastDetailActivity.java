@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import alex.com.darkskyapp.components.app.DarkSkyApp;
-import alex.com.darkskyapp.components.app.activity.BaseActivity;
 import alex.com.darkskyapp.components.forecast.core.ForecastDetailPresenter;
 import alex.com.darkskyapp.components.forecast.core.ForecastDetailView;
 import alex.com.darkskyapp.components.forecast.core.ForecastModel;
@@ -15,7 +14,7 @@ import alex.com.darkskyapp.components.forecast.core.ForecastModel;
  * Created by Alex on 11/12/2017.
  */
 
-public class ForecastDetailActivity extends BaseActivity {
+public class ForecastDetailActivity extends AppCompatActivity {
 
     ForecastDetailView view;
     ForecastDetailPresenter presenter;

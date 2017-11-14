@@ -1,6 +1,7 @@
 package alex.com.darkskyapp.components.forecast.core;
 
 import android.location.Location;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import alex.com.darkskyapp.components.forecast.list.WeatherViewType;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import timber.log.Timber;
 
 /**
  * Created by Alex on 11/11/2017.
@@ -54,6 +54,8 @@ public class ForecastDetailView {
     void bindForecast(Forecast forecast) {
         dailyAdapter.setWeatherItems(forecast.daily.data);
         hourlyAdapter.setWeatherItems(forecast.hourly.data);
+
+        Snackbar.make(view, "Updated Forecast", Snackbar.LENGTH_SHORT).show();
     }
 
     void bindLocation(Location location) {
@@ -65,21 +67,9 @@ public class ForecastDetailView {
         return view;
     }
 
-    public Observable<Object> refreshForecastClicks() {
+    Observable<Object> refreshForecastClicks() {
         return RxView.clicks(refreshForecastBtn);
     }
 
-
-
-    //Helpers
-    public String getDisplaySummary(Forecast forecast) {
-
-        StringBuilder builder = new StringBuilder("");
-        if (forecast.currently != null) {
-            builder.append(forecast.currently.summary + ". ");
-        }
-        builder.append(forecast.daily.summary);
-        return builder.toString();
-    }
 
 }

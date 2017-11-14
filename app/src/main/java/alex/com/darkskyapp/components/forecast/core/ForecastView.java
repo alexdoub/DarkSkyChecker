@@ -43,7 +43,7 @@ public class ForecastView {
     @BindView(R.id.refresh_forecast) Button refreshForecastBtn;
     @BindView(R.id.change_location) Button changeLocationBtn;
 
-    View view;
+    private View view;
 
     @Inject
     public ForecastView(ForecastActivity context) {
@@ -54,20 +54,18 @@ public class ForecastView {
     }
 
     void bindForecast(Forecast forecast) {
-        container.setVisibility(forecast != null ? View.VISIBLE : View.GONE);
+        container.setVisibility(View.VISIBLE);
         loadingView.setVisibility(View.GONE);
 
-        if (forecast != null) {
-            timezoneTv.setText(view.getContext().getString(R.string.timezone_for, forecast.timezone));
-            forecastSummaryTv.setText(getDisplaySummary(forecast));
-            forecastLocationTv.setText(view.getContext().getString(R.string.location_coordinates, forecast.latitude, forecast.longitude));
+        timezoneTv.setText(view.getContext().getString(R.string.timezone_for, forecast.timezone));
+        forecastSummaryTv.setText(getDisplaySummary(forecast));
+        forecastLocationTv.setText(view.getContext().getString(R.string.location_coordinates, forecast.latitude, forecast.longitude));
 
-            int resourceId = view.getContext().getResources().getIdentifier(forecast.currently.getIconStr(), "drawable", view.getContext().getPackageName());
-            if (resourceId == 0) {
-                Timber.e("WARNING - No icon set for: " + forecast.currently.getIconStr());
-            }
-            iconIv.setImageResource(resourceId);
+        int resourceId = view.getContext().getResources().getIdentifier(forecast.currently.getIconStr(), "drawable", view.getContext().getPackageName());
+        if (resourceId == 0) {
+            Timber.e("WARNING - No icon set for: " + forecast.currently.getIconStr());
         }
+        iconIv.setImageResource(resourceId);
     }
 
     void bindLocation(Location location) {
@@ -76,7 +74,7 @@ public class ForecastView {
         coordinatesTv.setText(view.getContext().getString(R.string.location_coordinates, location.getLatitude(), location.getLongitude()));
     }
 
-    public void showLoading() {
+    void showLoading() {
         container.setVisibility(View.GONE);
         loadingView.setVisibility(View.VISIBLE);
     }
@@ -85,25 +83,26 @@ public class ForecastView {
         return view;
     }
 
-    public Observable<Object> detailsClicks() {
+    Observable<Object> detailsClicks() {
         return RxView.clicks(forecastDetailsBtn);
     }
 
-    public Observable<Object> refreshForecastClicks() {
+    Observable<Object> refreshForecastClicks() {
         return RxView.clicks(refreshForecastBtn);
     }
 
-    public Observable<Object> changeLocationClicks() {
+    Observable<Object> changeLocationClicks() {
         return RxView.clicks(changeLocationBtn);
     }
 
 
     //Helpers
-    public String getDisplaySummary(Forecast forecast) {
+    private String getDisplaySummary(Forecast forecast) {
 
         StringBuilder builder = new StringBuilder("");
         if (forecast.currently != null) {
-            builder.append(forecast.currently.summary + ". ");
+            builder.append(forecast.currently.summary);
+            builder.append(". ");
         }
         builder.append(forecast.daily.summary);
         return builder.toString();

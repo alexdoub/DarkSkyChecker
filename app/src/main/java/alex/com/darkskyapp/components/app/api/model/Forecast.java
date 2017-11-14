@@ -13,5 +13,4 @@ public class Forecast {
     public Weather currently;
     public ForecastSegment daily;
     public ForecastSegment hourly;
-
 }

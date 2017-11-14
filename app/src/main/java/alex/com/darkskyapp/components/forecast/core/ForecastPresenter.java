@@ -12,8 +12,8 @@ import alex.com.darkskyapp.utils.SchedulerUtils;
 
 public class ForecastPresenter {
 
-    ForecastView view;
-    ForecastModel model;
+    private ForecastView view;
+    private ForecastModel model;
 
     public ForecastPresenter(ForecastModel model, ForecastView view) {
         this.model = model;
@@ -22,7 +22,7 @@ public class ForecastPresenter {
 
     public void onCreate() {
 
-        //Hook up listeners for button clicks
+        //Button listeners
         view.refreshForecastClicks().subscribe(obj -> {
             refreshForecast();
         });
@@ -33,7 +33,7 @@ public class ForecastPresenter {
             goToForecastDetailsActivity();
         });
 
-        //Hook up listener for model changing
+        //Model->View listeners
         model.getLocationSubject()
                 .observeOn(SchedulerUtils.main())
                 .subscribe(view::bindLocation);
@@ -46,10 +46,10 @@ public class ForecastPresenter {
         refreshForecast();
     }
 
-    public void goToForecastDetailsActivity() {
-        Context c = view.view().getContext();
-        Intent in = new Intent(c, ForecastDetailActivity.class);
-        c.startActivity(in);
+    private void goToForecastDetailsActivity() {
+        Context context = view.view().getContext();
+        Intent in = new Intent(context, ForecastDetailActivity.class);
+        context.startActivity(in);
     }
 
     private void refreshForecast() {

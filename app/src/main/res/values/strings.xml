@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Dark Sky Checker</string>
 
-    <!--Weather-->
+    <!--Forecast-->
     <string name="location_info">Selected Location</string>
     <string name="forecast_info">Forecast Information</string>
     <string name="daily_forecast">Daily Forecast</string>
     <string name="hourly_forecast">Hourly Forecast</string>
-
     <string name="refresh_forecast">Refresh Forecast</string>
     <string name="change_location">Change Location</string>
     <string name="location_name">Selected location is %s</string>

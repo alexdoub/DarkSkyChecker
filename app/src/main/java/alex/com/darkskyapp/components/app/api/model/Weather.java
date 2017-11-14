@@ -6,7 +6,6 @@ package alex.com.darkskyapp.components.app.api.model;
 
 public class Weather {
 
-
     //Common
     String icon;
     public long time;

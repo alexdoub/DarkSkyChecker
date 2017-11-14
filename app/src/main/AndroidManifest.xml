@@ -3,12 +3,8 @@
 
     <!--Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-feature android:name="android.hardware.location.gps" />
-
-    <!--TODO: REMOVE-->
+    <!--Note: If this was a production app I would have this in a debug manifest-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -20,14 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <activity android:name=".components.forecast.activity.ForecastActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity android:name=".components.forecast.activity.ForecastDetailActivity" />

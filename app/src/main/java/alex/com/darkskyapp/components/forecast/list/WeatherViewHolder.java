@@ -5,34 +5,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import alex.com.darkskyapp.R;
 import alex.com.darkskyapp.components.app.api.model.Weather;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
 /**
  * Created by Alex on 11/13/2017.
  */
 
-public class WeatherViewHolder extends RecyclerView.ViewHolder {
+class WeatherViewHolder extends RecyclerView.ViewHolder {
 
-    View view;
+    private View view;
 
     @BindView(R.id.title) TextView titleTv;
     @BindView(R.id.icon) ImageView iconIv;
     @BindView(R.id.temperature) TextView temperatureTv;
     @BindView(R.id.precipitation) TextView precipitationTv;
 
-
-    public WeatherViewHolder(View itemView, PublishSubject<Integer> clickSubject) {
+    WeatherViewHolder(View itemView) {
         super(itemView);
         this.view = itemView;
         ButterKnife.bind(this, view);
-        view.setOnClickListener(v -> clickSubject.onNext(getAdapterPosition()));
     }
 
     void bind(Weather weather, WeatherViewType type) {
@@ -44,6 +39,7 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
 
         String titleString = "";
         String temperatureString = "";
+        String precipitationString = this.view.getContext().getString(R.string.precipitation, weather.precipProbability * 100);
 
         long currentTimeS = System.currentTimeMillis() / 1000;
         long timeDiffHours = (weather.time - currentTimeS) / (60 * 60);
@@ -60,7 +56,7 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
 
         titleTv.setText(titleString);
         temperatureTv.setText(temperatureString);
-        precipitationTv.setText(this.view.getContext().getString(R.string.precipitation, weather.precipProbability * 100));
+        precipitationTv.setText(precipitationString);
     }
 
 }

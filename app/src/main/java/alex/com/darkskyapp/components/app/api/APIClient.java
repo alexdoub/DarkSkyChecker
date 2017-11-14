@@ -9,8 +9,8 @@ import io.reactivex.Observable;
 
 public class APIClient {
 
-    String _apiKey;
-    DarkSkyAPI _darkSkyAPI;
+    private String _apiKey;
+    private DarkSkyAPI _darkSkyAPI;
 
     public APIClient(String apiKey, DarkSkyAPI darkSkyAPI) {
         _apiKey = apiKey;
