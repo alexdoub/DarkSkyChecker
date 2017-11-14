@@ -24,16 +24,13 @@ public class ForecastModel {
         this.apiClient = apiClient;
         this.locationManager = locationManager;
         forecastSubject = BehaviorSubject.create();
-        locationSubject = BehaviorSubject.createDefault(locationManager.getLastOrDefaultLocation());
+        locationSubject = BehaviorSubject.createDefault(locationManager.getLastSavedLocationOrDefault());
     }
 
     void refreshLocationFromGPS() {
         locationManager.getGPSLocationObservable()
                 .take(1)
-                .subscribe(newLocation -> {
-                    Timber.i("ForecastModel updated selectedLocation to: " + newLocation.getProvider());
-                    locationSubject.onNext(newLocation);
-                });
+                .subscribe(locationSubject::onNext);
 
         locationManager.simulateGPSUpdate();
     }

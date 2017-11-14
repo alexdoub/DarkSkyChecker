@@ -4,9 +4,10 @@ import android.content.SharedPreferences;
 import android.location.Location;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
-import alex.com.darkskyapp.config.Constants;
-import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
 /**
@@ -56,7 +57,7 @@ public class LocationManager {
     }
 
     private ArrayList<Location> simulatedGPSLocations = new ArrayList<>();
-    private BehaviorSubject<Location> gpsLocationSubject = BehaviorSubject.create();
+    private PublishSubject<Location> gpsLocationSubject = PublishSubject.create();
     private SharedPreferences prefs;
 
     public LocationManager(SharedPreferences prefs) {
@@ -74,17 +75,17 @@ public class LocationManager {
         simulatedGPSLocations.add(Miami());
     }
 
-    public Location getLastOrDefaultLocation() {
+    public Location getLastSavedLocationOrDefault() {
 
         String lastLocationName = prefs.getString(KEY_LAST_LOCATION_NAME, null);
         float lastLocationLatitude = prefs.getFloat(KEY_LAST_LOCATION_LATITUDE, 0f);
         float lastLocationLongitude = prefs.getFloat(KEY_LAST_LOCATION_LONGITUDE, 0f);
 
         if (lastLocationName == null || lastLocationName.length() == 0) {
-            Timber.i("getLastOrDefaultLocation loading default");
+            Timber.i("getLastSavedLocationOrDefault loading default");
             return Alaska();
         } else {
-            Timber.i("getLastOrDefaultLocation loading stored: " + lastLocationName);
+            Timber.i("getLastSavedLocationOrDefault loading stored: " + lastLocationName);
             Location storedLocation = new Location(lastLocationName);
             storedLocation.setLatitude(lastLocationLatitude);
             storedLocation.setLongitude(lastLocationLongitude);
@@ -101,17 +102,18 @@ public class LocationManager {
         editor.apply();
     }
 
-    //Simulate GPS changing location
-    public BehaviorSubject<Location> getGPSLocationObservable() {
+    public PublishSubject<Location> getGPSLocationObservable() {
         return gpsLocationSubject;
     }
 
     public void simulateGPSUpdate() {
         Location newLocation = simulatedGPSLocations.remove(0);
         simulatedGPSLocations.add(newLocation);
-        Timber.i("Simulating change to location: " + newLocation.getProvider());
+        Timber.i("Simulating GPS update to location in 200ms: " + newLocation.getProvider());
 
-        gpsLocationSubject.onNext(newLocation);
+        Observable.just(newLocation)
+                .delay(200, TimeUnit.MILLISECONDS)
+                .subscribe(gpsLocationSubject::onNext);
     }
 }
 

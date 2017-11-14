@@ -42,15 +42,15 @@ class WeatherViewHolder extends RecyclerView.ViewHolder {
         String precipitationString = this.view.getContext().getString(R.string.precipitation, weather.precipProbability * 100);
 
         long currentTimeS = System.currentTimeMillis() / 1000;
-        long timeDiffHours = Math.round((weather.time - currentTimeS) / (60.0 * 60.0));
-        long timeDiffDays = Math.round(timeDiffHours / 24.0);
+        long timeDiffHours = Math.round(((weather.time - currentTimeS) / (60.0 * 60.0)) + 0.5);
+        long timeDiffDays = Math.round((timeDiffHours / 24.0) + 0.5);
         switch (type) {
             case DAILY:
-                titleString = this.view.getContext().getString(R.string.time_offset_days, timeDiffDays + 1);
+                titleString = this.view.getContext().getString(R.string.time_offset_days, timeDiffDays);
                 temperatureString = this.view.getContext().getString(R.string.temperature_range, weather.temperatureLow, weather.temperatureHigh);
                 break;
             case HOURLY:
-                titleString = this.view.getContext().getString(R.string.time_offset_hours, timeDiffHours + 1);
+                titleString = this.view.getContext().getString(R.string.time_offset_hours, timeDiffHours);
                 temperatureString = this.view.getContext().getString(R.string.temperature, weather.temperature);
         }
 
