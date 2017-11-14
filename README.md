@@ -48,7 +48,9 @@ Dagger Components
 
 ## Activities & Flow ##
 
-The activities follow a MVP paradigm where both activities share the same Forecast Model
+The activities follow a MVP paradigm where both activities share the same Forecast Model.
+
+Here is a high level overview of how just the MVP parts connect. (Excluding list view classes)
 
 ```
    ...
