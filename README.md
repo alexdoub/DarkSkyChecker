@@ -10,6 +10,8 @@ I was planning on having it read from your devices actual GPS, but ended up just
 
 The components are neatly separated to better facilitate expansion of the app. For example, we could add a new screen to select the location manually, a Google Maps activity to select a position off of a map, or even a screen that shows several different forecasts at once.
 
+Just a note, I think I could further separate the LocationModule into 2 parts, one that manages the simulated GPS and another that manages location selection (and put that into the DataModule), however I feel the project is already getting unnecessarily complex for what it's supposed to be. If I did that, the forecast model could be further streamlined so it automatically fetches the forecast once the ForecastModels' location is set.
+
 ## Usage ##
 
 First, select a location (default is Alaska), then click Refresh Forecast to get the forecast for your selected location. You can select different locations while maintaining the integrity of the ForecastModel.

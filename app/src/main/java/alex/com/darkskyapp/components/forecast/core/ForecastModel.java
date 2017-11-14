@@ -26,6 +26,8 @@ public class ForecastModel {
         locationSubject = BehaviorSubject.createDefault(locationManager.getLastSavedLocationOrDefault());
     }
 
+    //Note, this probably doesn't belong here, as the ForecastModel shouldn't directly have information for the selected location (not to be confused with the forecasts location).
+    //TODO: pull the 'selected location' component into a different part, so the ForecastModel only knows about the forecasts location, not the next location the user will select
     void refreshLocationFromGPS() {
         locationManager.getGPSLocationObservable()
                 .take(1)
