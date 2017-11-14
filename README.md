@@ -50,7 +50,7 @@ Dagger Components
 
 The activities follow a MVP paradigm where both activities share the same Forecast Model.
 
-Here is a high level overview of how just the MVP parts connect. (Excluding list view classes)
+Here is a basic high level overview of how just the MVP parts connect. (Excluding list view classes)
 
 ```
    ...
@@ -78,16 +78,18 @@ The model fetches forecast data relating to its current location
 
 Example data flow for setting location:
 1) User taps update location
-2) Model subscribes to single GPS update
-3) Location manager simulates GPS update
-4) Model updates selected location
-5) View binds with new selected location
+2) Model recieves view event via rx subscription
+3) Model subscribes to single GPS update
+4) Location manager simulates GPS update
+5) Model updates selected location 
+6) View recieves new location via rx subscription to model then binds data
 
 
 Example data flow for getting forecast for selected location:
 1) User taps refresh forecast
-2) Presenter propagates event to model
-3) Model fetches forecast for selected location
-4) View listens to model update via presenter hookup & binds new forecast data
+2) Model recieves view event via rx subscription
+3) Model fetches forecast for selected location from API client
+4) Model recieves API update from subscription, publishes it to own forecast subject
+5) View recieves model update via subscription then binds data
 
 
